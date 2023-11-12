@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="0dp">
+
+    <ImageView
+        android:id="@+id/circlebg"
+        android:layout_width="500dp"
+
+        android:layout_height="900dp"
+        android:layout_marginTop="-359dp"
+        android:contentDescription="cricle"
+        android:src="@drawable/circle" />
+
+    <ImageView
+
+        android:id="@+id/rect"
+        android:layout_width="320dp"
+        android:layout_height="320dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-90dp"
+        android:contentDescription="logo"
+        android:src="@drawable/rectangle"
+        android:translationX="0dp"
+        android:translationY="250dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:translationX="70dp"
+        android:translationY="200dp"
+        android:translationZ="100dp">
+
+        <TextView
+            android:id="@+id/emailt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
+            android:text="Email Id"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:width="500dp"
+            android:background="#AEA5A5"
+            android:backgroundTint="#AEA5A5"
+            android:backgroundTintMode="screen"
+            android:ems="10"
+            android:fontFamily="@font/montserrat"
+            android:hapticFeedbackEnabled="true"
+            android:maxWidth="100dp"
+            android:minWidth="100dp"
+            android:textColor="#000000"
+            android:translationY="5dp"
+            android:inputType="textEmailAddress"/>
+        <TextView
+            android:id="@+id/passwdt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
+            android:text="Password"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/passwd"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:width="500dp"
+            android:background="#AEA5A5"
+            android:backgroundTint="#AEA5A5"
+            android:backgroundTintMode="screen"
+            android:ems="10"
+            android:fontFamily="@font/montserrat"
+            android:hapticFeedbackEnabled="true"
+            android:inputType="textPassword"
+            android:maxWidth="100dp"
+            android:minWidth="100dp"
+            android:textColor="#000000"
+            android:translationY="5dp" />
+
+        <TextView
+            android:id="@+id/frgtpasswds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Forgot Password"
+            android:textSize="15sp" />
+        <Button
+            android:id="@+id/signInButton"
+            android:layout_width="210dp"
+            android:layout_height="50dp"
+
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button"
+            android:backgroundTint="#9EDDFF"
+            android:fontFamily="@font/lato"
+            android:padding="10dp"
+            android:text="Login"
+            android:textColor="#000000"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/rectbg"
+        android:layout_width="500dp"
+
+        android:layout_height="900dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-800dp"
+        android:contentDescription="rect"
+        android:src="@drawable/button" />
+
+    <ImageView
+
+        android:id="@+id/logoImageView"
+        android:layout_width="200dp"
+        android:layout_height="290dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-90dp"
+        android:contentDescription="logo"
+        android:src="@drawable/_artboard_1border"
+        android:translationX="-140dp"
+        android:translationY="30dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elegantTextHeight="true"
+        android:fontFamily="@font/montserrat"
+        android:text="CircleCut"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        android:translationX="140dp"
+        android:translationY="45dp" />
+    <TextView
+        android:id="@+id/signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elegantTextHeight="true"
+        android:fontFamily="@font/montserrat"
+        android:text="Log in"
+        android:textColor="#FFFFFF"
+        android:textSize="23sp"
+        android:translationX="60dp"
+        android:translationY="120dp" />
+
+</RelativeLayout>

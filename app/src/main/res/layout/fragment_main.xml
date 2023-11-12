@@ -75,19 +75,18 @@
                 layout="@layout/layout_input_toggle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/execute"
+                style="@style/mainButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginBottom="20dp"
+                android:enabled="false"
+                android:text="@string/action_execute" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>
-
-    <TextView
-        android:id="@+id/execute"
-        style="@style/mainButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginBottom="20dp"
-        android:enabled="false"
-        android:text="@string/action_execute"
-        app:layout_constraintBottom_toTopOf="@+id/setBiometricsPin" />
 
     <TextView
         android:id="@+id/setBiometricsPin"

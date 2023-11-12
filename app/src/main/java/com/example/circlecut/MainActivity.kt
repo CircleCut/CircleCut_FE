@@ -14,14 +14,22 @@
 
 package com.example.circlecut
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.example.circlecut.R
-
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
+        val signInButton: Button = findViewById(R.id.signInButton)
+        val logInButton: Button= findViewById(R.id.LogInButton)
+        signInButton.setOnClickListener {
+            startActivity(Intent(this@MainActivity, SigninActivity::class.java))
+        }
+        logInButton.setOnClickListener {
+            startActivity(Intent(this@MainActivity,LoginActivity::class.java))
+        }
     }
 }
