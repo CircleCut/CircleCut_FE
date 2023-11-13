@@ -18,6 +18,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+
+
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         val signInButton: Button = findViewById(R.id.signInButton)
         val logInButton: Button= findViewById(R.id.logInButton)
         signInButton.setOnClickListener {
+
             startActivity(Intent(this@MainActivity, SigninActivity::class.java))
         }
         logInButton.setOnClickListener {

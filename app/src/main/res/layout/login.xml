@@ -104,7 +104,7 @@
             android:fontFamily="@font/lato"
             android:padding="10dp"
             android:text="Login"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
             android:textSize="18sp" />
     </LinearLayout>
 
