@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="390dp"
+    android:layout_height="100dp">
+        <RelativeLayout
+            android:layout_width="390dp"
+            android:layout_height="100dp"
+            android:padding="0dp">
+
+            <ImageView
+                android:id="@+id/circlebg2"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:contentDescription="cricle"
+                android:src="@drawable/whitecircle"
+                android:translationX="25dp"
+                android:translationY="25dp"
+                android:translationZ="10dp" />
+
+            <TextView
+                android:id="@+id/nameletter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:text="A"
+                android:textSize="30sp"
+                android:translationX="45dp"
+                android:translationY="30dp"
+                android:translationZ="10dp" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:text="Adriel"
+                android:textSize="20sp"
+                android:translationX="95dp"
+                android:translationY="25dp"
+                android:translationZ="10dp" />
+
+            <TextView
+                android:id="@+id/owe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:text="You owe"
+                android:textSize="15sp"
+                android:translationX="95dp"
+                android:translationY="55dp"
+                android:translationZ="10dp" />
+
+            <TextView
+                android:id="@+id/cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:text="300"
+                android:textSize="30sp"
+                android:translationX="305dp"
+                android:translationY="30dp"
+                android:translationZ="10dp" />
+
+            <TextView
+                android:id="@+id/currency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:text="$"
+                android:textSize="15sp"
+                android:translationX="290dp"
+                android:translationY="45dp"
+                android:translationZ="10dp" />
+
+
+            <ImageView
+                android:id="@+id/expense"
+                android:layout_width="390dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="expense"
+                android:src="@drawable/rectborder" />
+
+        </RelativeLayout>
+</LinearLayout>
