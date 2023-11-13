@@ -4,6 +4,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
 
 class ApiManager {
     private val apiKey =""
@@ -23,7 +24,11 @@ class ApiManager {
                 .build()
 
             val response = client.newCall(request).execute()
-            return response.body?.string()
+            val responseBody = response.body?.string()
+
+            // Parse JSON response and extract userToken
+            val jsonObject = JSONObject(responseBody)
+            return jsonObject.optJSONObject("data")?.optString("userToken")
         } catch (e: Exception) {
             // Handle exceptions or errors here
             return null
@@ -44,12 +49,15 @@ class ApiManager {
                 .build()
 
             val response = client.newCall(request).execute()
+//            return response.body?.string()
             return response.body?.string()
+
         } catch (e: Exception) {
             // Handle exceptions or errors here
             return null
         }
     }
+
     private fun readApiKey(): String {
         // Implement the logic to read the API key from local.properties file
         // (similar to the previous example)
