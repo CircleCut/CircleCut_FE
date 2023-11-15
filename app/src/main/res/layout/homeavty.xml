@@ -23,7 +23,6 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="Friends"
-            android:textColor="#6499E9"
             android:textSize="20sp" />
 
         <TextView
@@ -33,17 +32,17 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="Groups"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/activity"
+            android:id="@+id/avty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:text="Activity"
+            android:textColor="#6499E9"
             android:textSize="20sp"/>
-
     </LinearLayout>
 
 
@@ -242,9 +241,9 @@
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:translationY="400dp">
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </androidx.core.widget.NestedScrollView>
 </RelativeLayout>

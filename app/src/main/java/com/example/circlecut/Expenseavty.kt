@@ -1,27 +1,27 @@
 package com.example.circlecut
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-class ExpenseActivity : AppCompatActivity() {
 
+class Expenseavty : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.home)
+        setContentView(R.layout.homeavty)
+
         // Fetch expense data (replace this with your data fetching logic)
         val expenses = getDummyExpenseData()
-        val avty:TextView =findViewById(R.id.activity)
+        val frnd: TextView =findViewById(R.id.friends)
         val group: TextView = findViewById(R.id.group)
         group.setOnClickListener {
 
-            startActivity(Intent(this@ExpenseActivity, Expensegroup::class.java))
+            startActivity(Intent(this@Expenseavty, Expensegroup::class.java))
         }
-        avty.setOnClickListener {
+        frnd.setOnClickListener {
 
-            startActivity(Intent(this@ExpenseActivity, Expenseavty::class.java))
+            startActivity(Intent(this@Expenseavty, ExpenseActivity::class.java))
         }
         // Set up RecyclerView
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
@@ -32,11 +32,8 @@ class ExpenseActivity : AppCompatActivity() {
     private fun getDummyExpenseData(): List<Expense> {
         // Replace this with your data fetching logic
         return listOf(
-            Expense("Adriel", "You owe","A", 300),
-            Expense("Romario", "You owe","R", 300),
-            Expense("Gabriel", "Owes you","G", 100),
-            Expense("Romario", "You owe","R", 300),
-            Expense("Adriel", "You owe","A", 300),
+            Expense("Hong kong trip", "You owe","H", 500),
+            Expense("Flatmates", "You owe","F", 10),
             // Add more expense items as needed
         )
     }

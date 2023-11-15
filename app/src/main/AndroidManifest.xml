@@ -25,6 +25,10 @@
         <activity android:name=".SigninActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".ExpenseActivity" />
+        <activity android:name=".Expensegroup" />
+        <activity android:name=".Expenseavty" />
+
+
         <activity
             android:name=".CustomActivity"
             android:screenOrientation="portrait" />
