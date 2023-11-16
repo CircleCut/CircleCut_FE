@@ -32,9 +32,8 @@ class Expenseavty : AppCompatActivity() {
     private fun getDummyExpenseData(): List<Expense> {
         // Replace this with your data fetching logic
         return listOf(
-            Expense("Hong kong trip", "You owe","H", 500),
-            Expense("Flatmates", "You owe","F", 10),
-            // Add more expense items as needed
+            Expense("Adriel", "Dinner - You owe","H", 500), // Add more expense items as needed
+            Expense("Gabriel", "Settled Up","H", 100), // Add more expense items as needed
         )
     }
 }

@@ -17,7 +17,7 @@
         android:translationZ="10dp">
 
         <TextView
-            android:id="@+id/friends"
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -69,6 +69,15 @@
         android:src="@drawable/whitecircle"
         android:translationX="150dp"
         android:translationY="50dp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
+        android:text="0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+        android:translationX="50dp"
+        android:translationY="150dp" />
 
     <ImageView
         android:id="@+id/ham"
