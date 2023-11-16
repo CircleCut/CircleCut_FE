@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         val logInButton: Button= findViewById(R.id.logInButton)
         signInButton.setOnClickListener {
 
-            startActivity(Intent(this@MainActivity, SigninActivity::class.java))
+            startActivity(Intent(this@MainActivity, WalletInitializationActivity::class.java))
         }
         logInButton.setOnClickListener {
             startActivity(Intent(this@MainActivity,ExpenseActivity::class.java))

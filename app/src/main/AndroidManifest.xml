@@ -28,6 +28,7 @@
         <activity android:name=".Expensegroup" />
         <activity android:name=".Expenseavty" />
         <activity android:name=".AddExpense" />
+        <activity android:name=".WalletInitializationActivity"/>
 
 
         <activity
