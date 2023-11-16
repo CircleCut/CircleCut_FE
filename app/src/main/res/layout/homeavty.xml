@@ -17,7 +17,7 @@
         android:translationZ="10dp">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/friends"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

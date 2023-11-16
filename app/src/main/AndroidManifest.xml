@@ -27,6 +27,7 @@
         <activity android:name=".ExpenseActivity" />
         <activity android:name=".Expensegroup" />
         <activity android:name=".Expenseavty" />
+        <activity android:name=".AddExpense" />
 
 
         <activity

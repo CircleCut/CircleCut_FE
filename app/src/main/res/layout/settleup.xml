@@ -36,7 +36,7 @@
                 android:translationZ="10dp" />
 
             <ImageView
-                android:id="@+id/circle2"
+                android:id="@+id/circle1"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_marginRight="10dp"

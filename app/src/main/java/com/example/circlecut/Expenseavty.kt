@@ -5,6 +5,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class Expenseavty : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,6 +16,10 @@ class Expenseavty : AppCompatActivity() {
         val expenses = getDummyExpenseData()
         val frnd: TextView =findViewById(R.id.friends)
         val group: TextView = findViewById(R.id.group)
+        val floatbutton : FloatingActionButton = findViewById(R.id.floatingActionButton2)
+        floatbutton.setOnClickListener{
+            startActivity(Intent(this@Expenseavty,AddExpense::class.java))
+        }
         group.setOnClickListener {
 
             startActivity(Intent(this@Expenseavty, Expensegroup::class.java))

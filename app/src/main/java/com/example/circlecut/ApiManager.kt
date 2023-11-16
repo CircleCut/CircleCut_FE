@@ -8,7 +8,6 @@ import org.json.JSONObject
 
 class ApiManager {
     private val apiKey =""
-    // Function to get the session token
     suspend fun getSessionToken(userId: String): String? {
         try {
             val client = OkHttpClient()
@@ -30,7 +29,6 @@ class ApiManager {
             val jsonObject = JSONObject(responseBody)
             return jsonObject.optJSONObject("data")?.optString("userToken")
         } catch (e: Exception) {
-            // Handle exceptions or errors here
             return null
         }
     }
@@ -53,15 +51,11 @@ class ApiManager {
             return response.body?.string()
 
         } catch (e: Exception) {
-            // Handle exceptions or errors here
             return null
         }
     }
 
     private fun readApiKey(): String {
-        // Implement the logic to read the API key from local.properties file
-        // (similar to the previous example)
-        // ...
         return "YOUR_API_KEY"
     }
 }
