@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this@MainActivity, WalletInitializationActivity::class.java))
         }
         logInButton.setOnClickListener {
-            startActivity(Intent(this@MainActivity,ExpenseActivity::class.java))
+            startActivity(Intent(this@MainActivity,LoginActivity::class.java))
         }
     }
 }

@@ -1,6 +1,9 @@
 package com.example.circlecut
 
+import android.accessibilityservice.GestureDescription.StrokeDescription
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import circle.programmablewallet.sdk.WalletSdk
@@ -14,39 +17,91 @@ import circle.programmablewallet.sdk.presentation.SettingsManagement
 import circle.programmablewallet.sdk.result.ExecuteResultType
 import com.example.circlecut.pwcustom.MyLayoutProvider
 import com.example.circlecut.pwcustom.MyViewSetterProvider
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.json.JSONArray
+import org.json.JSONObject
 
 class WalletInitializationActivity : AppCompatActivity(), EventListener, Callback<ExecuteResult> {
-
+    var usertoken:String =""
+    var encryptionkey:String?=""
+    var challengeid:String=""
     override fun onCreate(savedInstanceState: Bundle?) {
+        val myCallback = this
         super.onCreate(savedInstanceState)
         setContentView(R.layout.signin)
+        val signupButton: Button = findViewById(R.id.signInButton)
+        val apiManager = ApiManager()
+        signupButton.setOnClickListener {
+            val userId = "00002" // Replace with the actual user ID
+            GlobalScope.launch(Dispatchers.IO) {
+                var idempotencyKey = apiManager.makeGetRequest("https://www.uuidtools.com/api/generate/v4")
+                val jsonArray = JSONArray(idempotencyKey)
+                idempotencyKey=jsonArray.optString(0)
+                try{
+                        val result = apiManager.createUser(userId)
+                        println(result)
+                        if (result != null) {
+                            val sessiontoken = apiManager.getSessionToken(userId)
+                            if (sessiontoken != null) {
+                                val jsonObject = JSONObject(sessiontoken)
+                                usertoken= jsonObject.optJSONObject("data")?.optString("userToken").toString()
+                                encryptionkey=jsonObject.optJSONObject("data")?.optString("encryptionKey").toString()
+                                println(usertoken)
+                                if(usertoken!=null){
+                                    val inituser = apiManager.initializeUser(usertoken,idempotencyKey)
+                                    if(inituser!=null){
+                                        println(inituser)
+                                        val jsonObject1 = JSONObject(inituser)
+                                        challengeid=jsonObject1.optJSONObject("data")?.optString("challengeId").toString()
+                                        if(challengeid!=""){
+                                            initAndLaunchSdk {
+                                                WalletSdk.execute(
+                                                    this@WalletInitializationActivity,
+                                                    "$usertoken", // Replace with your actual user token
+                                                    "$encryptionkey", // Replace with your actual encryption key
+                                                    arrayOf("$challengeid"), // Replace with your actual challenge ID
+                                                    myCallback
+                                                )
+                                                WalletSdk.setSecurityQuestions(
+                                                    arrayOf(
+                                                        SecurityQuestion("What is your father’s middle name?"),
+                                                        SecurityQuestion("What is your favorite sports team?"),
+                                                        SecurityQuestion("What is your mother’s maiden name?"),
+                                                        SecurityQuestion("What is the name of your first pet?"),
+                                                        SecurityQuestion("What is the name of the city you were born in?"),
+                                                        SecurityQuestion("What is the name of the first street you lived on?"),
+                                                        SecurityQuestion(
+                                                            "When is your father’s birthday?",
+                                                            SecurityQuestion.InputType.datePicker
+                                                        )
+                                                    )
+                                                )
+                                            }
 
-        // Your activity initialization code here
 
-        // Example: Initialize the user wallet
-        initAndLaunchSdk {
-            WalletSdk.execute(
-                this@WalletInitializationActivity,
-                "", // Replace with your actual user token
-                "", // Replace with your actual encryption key
-                arrayOf(""), // Replace with your actual challenge ID
-                this
-            )
-            WalletSdk.setSecurityQuestions(
-                arrayOf(
-                    SecurityQuestion("What is your father’s middle name?"),
-                    SecurityQuestion("What is your favorite sports team?"),
-                    SecurityQuestion("What is your mother’s maiden name?"),
-                    SecurityQuestion("What is the name of your first pet?"),
-                    SecurityQuestion("What is the name of the city you were born in?"),
-                    SecurityQuestion("What is the name of the first street you lived on?"),
-                    SecurityQuestion(
-                        "When is your father’s birthday?",
-                        SecurityQuestion.InputType.datePicker
-                    )
-                )
-            )
+
+                                        }
+                                    }}
+                            } else {
+                                println("Error occurred during sessiontoken.")
+                            }
+                        } else {
+                            println("Error occurred during create user.")
+                        }
+
+                        }
+                    catch (e:Exception){
+                        println(e)
+                    }
+
+            }
+
+            GlobalScope.launch(Dispatchers.IO) {
+            }
         }
+
     }
 
     private inline fun initAndLaunchSdk(launchBlock: () -> Unit) {
@@ -72,13 +127,8 @@ class WalletInitializationActivity : AppCompatActivity(), EventListener, Callbac
     override fun onResult(result: ExecuteResult) {
         val walletAddress = result.data?.toString()
         Toast.makeText(this, "Wallet initialized successfully. Address: $walletAddress", Toast.LENGTH_SHORT).show()
-
-//        if (result.resultType == ExecuteResultType.CREATE_WALLET) {
-//            val walletAddress = result.data?.toString()
-//            Toast.makeText(this, "Wallet initialized successfully. Address: $walletAddress", Toast.LENGTH_SHORT).show()
-//        } else {
-//            Toast.makeText(this, "Wallet Failed", Toast.LENGTH_SHORT).show()
-//        }
+        println(walletAddress)
+        startActivity(Intent(this@WalletInitializationActivity, ExpenseActivity::class.java))
     }
 
     private fun showSnack(message: String) {

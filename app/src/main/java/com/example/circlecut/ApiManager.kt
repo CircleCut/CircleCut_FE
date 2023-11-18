@@ -2,16 +2,20 @@ package com.example.circlecut
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.Response
 import org.json.JSONObject
 
 class ApiManager {
     private val apiKey =""
     suspend fun getSessionToken(userId: String): String? {
         try {
+
             val client = OkHttpClient()
 
             val mediaType = "application/json".toMediaTypeOrNull()
@@ -29,9 +33,10 @@ class ApiManager {
 
             // Parse JSON response and extract userToken
             val jsonObject = JSONObject(responseBody)
-            return jsonObject.optJSONObject("data")?.optString("userToken")
+             jsonObject.optJSONObject("data")?.optString("userToken")
+            return responseBody
         } catch (e: Exception) {
-            return null
+                throw e
         }
     }
     suspend fun createUser(userId: String): String? {
@@ -53,32 +58,32 @@ class ApiManager {
             return response.body?.string()
 
         } catch (e: Exception) {
-            return null
+            throw e
         }
     }
-    suspend fun initializeUser(apiKey: String, userToken: String, idempotencyKey: String, blockchain: String): String? {
-        return withContext(Dispatchers.IO) {
-            try {
-                val client = OkHttpClient()
+    suspend fun initializeUser(usertoken:String,idemkey:String): String? {
+        val client = OkHttpClient()
 
-                val mediaType = "application/json".toMediaTypeOrNull()
-                val body = "{\"idempotencyKey\":\"$idempotencyKey\",\"blockchains\":\"[$blockchain]\"}".toRequestBody(mediaType)
+        val mediaType = "application/json".toMediaTypeOrNull()
+        val body = "{\"blockchains\":[\"ETH-GOERLI\"],\"accountType\":\"SCA\",\"idempotencyKey\":\"$idemkey\"}".toRequestBody(mediaType)
 
-                val request = Request.Builder()
-                    .url("https://api.circle.com/v1/w3s/user/initalize")
-                    .post(body)
-                    .addHeader("Content-Type", "application/json")
-                    .addHeader("Authorization", "Bearer $apiKey")
-                    .addHeader("X-User-Token", userToken)
-                    .build()
+        val request = Request.Builder()
+            .url("https://api.circle.com/v1/w3s/user/initialize")
+            .post(body)
+            .addHeader("accept", "application/json")
+            .addHeader("X-User-Token", "$usertoken")
+            .addHeader("content-type", "application/json")
+            .addHeader("authorization", "Bearer $apiKey")
+            .build()
 
-                val response = client.newCall(request).execute()
-                return@withContext response.body?.string()
-            } catch (e: Exception) {
-                return@withContext null
-            }
+        return try {
+            val response = client.newCall(request).execute()
+            response.body?.string()
+        } catch (e: Exception) {
+            throw e
         }
     }
+
     suspend fun getWalletDetails(userId: String, apiKey: String): String? {
         try {
             val client = OkHttpClient()
@@ -94,10 +99,46 @@ class ApiManager {
             return response.body?.string()
 
         } catch (e: Exception) {
-            return null
+            return e.toString()
         }
     }
     private fun readApiKey(): String {
         return "YOUR_API_KEY"
     }
+    suspend fun makeGetRequest(url: String): String? {
+        val client = OkHttpClient()
+        val request = Request.Builder()
+            .url(url)
+            .build()
+
+        return try {
+            val response = client.newCall(request).execute()
+            response.body?.string()
+        } catch (e: Exception) {
+            null
+        }
+    }
+    suspend fun UserPin(userToken: String, idempotencyKey: String): String? {
+        val client = OkHttpClient()
+
+        val mediaType = "application/json".toMediaTypeOrNull()
+        val requestBody = "{\"idempotencyKey\":\"$idempotencyKey\"}".toRequestBody(mediaType)
+
+        val request = Request.Builder()
+            .url("https://api.circle.com/v1/w3s/user/pin")
+            .post(requestBody)
+            .addHeader("accept", "application/json")
+            .addHeader("X-User-Token", userToken)
+            .addHeader("content-type", "application/json")
+            .addHeader("authorization", "Bearer $apiKey")
+            .build()
+
+        return try {
+            val response = client.newCall(request).execute()
+            response.body?.string()
+        } catch (e: Exception) {
+            null
+        }
+    }
+
 }
