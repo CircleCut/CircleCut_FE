@@ -1,4 +1,5 @@
 package com.example.circlecut
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -9,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ExpenseActivity : AppCompatActivity() {
-
+    // Inside any other activity or fragment where you want to retrieve the user ID
+    val sharedPrefs = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+    val userId = sharedPrefs.getString("userId", "") // Default value "" will be used if userId is not found
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home)
@@ -18,6 +21,7 @@ class ExpenseActivity : AppCompatActivity() {
         val avty:TextView =findViewById(R.id.activity)
         val group: TextView = findViewById(R.id.group)
         val floatbutton : FloatingActionButton = findViewById(R.id.floatingActionButton2)
+
         floatbutton.setOnClickListener{
             startActivity(Intent(this@ExpenseActivity,AddExpense::class.java))
         }

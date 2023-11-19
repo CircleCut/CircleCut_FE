@@ -35,7 +35,7 @@
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:width="500dp"
-            android:background="#AEA5A5"
+            android:background="@drawable/rounded_editext"
             android:backgroundTint="#AEA5A5"
             android:backgroundTintMode="screen"
             android:ems="10"
@@ -46,10 +46,12 @@
             android:minWidth="100dp"
             android:textColor="#000000"
             android:translationY="5dp" />
+
         <TextView
             android:id="@+id/emailt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/montserrat"
             android:text="Email Id"
             android:textSize="20sp" />
@@ -59,7 +61,7 @@
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:width="500dp"
-            android:background="#AEA5A5"
+            android:background="@drawable/rounded_editext"
             android:backgroundTint="#AEA5A5"
             android:backgroundTintMode="screen"
             android:ems="10"
@@ -70,10 +72,12 @@
             android:textColor="#000000"
             android:translationY="5dp"
             android:inputType="textEmailAddress"/>
+
         <TextView
             android:id="@+id/passwdt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/montserrat"
             android:text="Enter Password"
             android:textSize="20sp" />
@@ -83,7 +87,7 @@
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:width="500dp"
-            android:background="#AEA5A5"
+            android:background="@drawable/rounded_editext"
             android:backgroundTint="#AEA5A5"
             android:backgroundTintMode="screen"
             android:ems="10"
@@ -94,10 +98,12 @@
             android:minWidth="100dp"
             android:textColor="#000000"
             android:translationY="5dp" />
+
         <TextView
             android:id="@+id/mobt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/montserrat"
             android:text="Mobile Number"
             android:textSize="20sp" />
@@ -107,7 +113,7 @@
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:width="500dp"
-            android:background="#AEA5A5"
+            android:background="@drawable/rounded_editext"
             android:backgroundTint="#AEA5A5"
             android:backgroundTintMode="screen"
             android:ems="10"
@@ -117,7 +123,8 @@
             android:maxWidth="100dp"
             android:minWidth="100dp"
             android:textColor="#000000"
-            android:translationY="5dp" />
+            android:translationY="5dp"
+           />
 
         <Button
             android:id="@+id/signInButton"

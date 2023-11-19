@@ -2,16 +2,17 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'kotlinx-serialization'
 }
 
 android {
     namespace 'com.example.circlecut'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.circlecut"
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -37,6 +38,10 @@ android {
 }
 
 dependencies {
+    implementation platform("io.github.jan-tennert.supabase:bom:1.4.7")
+    implementation 'io.github.jan-tennert.supabase:postgrest-kt'
+    implementation 'io.github.jan-tennert.supabase:realtime-kt'
+    implementation("io.ktor:ktor-client-android:2.3.6")
     implementation "circle.programmablewallet:sdk:1.0.+"
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'

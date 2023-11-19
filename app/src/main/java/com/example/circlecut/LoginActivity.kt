@@ -27,12 +27,12 @@ class LoginActivity : AppCompatActivity(), Callback<ExecuteResult> {
     var usertoken:String =""
     var encryptionkey:String?=""
     var challengeid:String=""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
-        val myCallback = this
         val signupButton: Button = findViewById(R.id.signInButton)
-        val apiManager = ApiManager()
+        val apiManager = ApiManager(R.string.apikey.toString())
         signupButton.setOnClickListener {
             val userId = "00001" // Replace with the actual user ID
             GlobalScope.launch(Dispatchers.IO) {
@@ -49,24 +49,6 @@ class LoginActivity : AppCompatActivity(), Callback<ExecuteResult> {
                             usertoken= jsonObject.optJSONObject("data")?.optString("userToken").toString()
                             encryptionkey=jsonObject.optJSONObject("data")?.optString("encryptionKey").toString()
                             println(usertoken)
-                            if(usertoken!=null){
-                                val inituser = apiManager.initializeUser(usertoken,idempotencyKey)
-                                if(inituser!=null){
-                                    println(inituser)
-                                    val jsonObject1 = JSONObject(inituser)
-                                    challengeid=jsonObject1.optJSONObject("data")?.optString("challengeId").toString()
-                                    if(challengeid!=""){
-                                        initAndLaunchSdk {
-                                            WalletSdk.execute(
-                                                this@LoginActivity,
-                                                "$usertoken", // Replace with your actual user token
-                                                "$encryptionkey", // Replace with your actual encryption key
-                                                arrayOf("$challengeid"), // Replace with your actual challenge ID
-                                                myCallback
-                                            )
-                                        }
-                                    }
-                                }}
                         } else {
                             println("Error occurred during sessiontoken.")
                         }
@@ -84,26 +66,6 @@ class LoginActivity : AppCompatActivity(), Callback<ExecuteResult> {
             GlobalScope.launch(Dispatchers.IO) {
             }
         }
-    }
-    private inline fun initAndLaunchSdk(launchBlock: () -> Unit) {
-        try {
-            val settingsManagement = SettingsManagement()
-            settingsManagement.isEnableBiometricsPin = false // Set your desired value
-
-            WalletSdk.init(
-                applicationContext,
-                WalletSdk.Configuration(
-                    "https://api.circle.com/v1/w3s/", // Replace with your actual endpoint
-                    "", // Replace with your actual app ID
-                    settingsManagement
-                )
-            )
-
-        } catch (t: Throwable) {
-            showSnack(t.message ?: "initSdk catch null")
-            return
-        }
-        launchBlock()
     }
     override fun onResult(result: ExecuteResult) {
         val walletAddress = result.data?.toString()

@@ -1,4 +1,8 @@
 <resources>
     <string name="pw_endpoint" translatable="false">https://enduser-sdk.circle.com/v1/w3s/</string>
     <string name="pw_app_id" translatable="false"></string>
+    <string name="supabaseurl">https://rjvdnzsgaqfdpblvqqpq.supabase.co</string>
+    <string name="supabasekey">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJqdmRuenNnYXFmZHBibHZxcXBxIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5OTg3MzAzMiwiZXhwIjoyMDE1NDQ5MDMyfQ.DBYuPVveWMHXx70cpWkYaGliQftnW_v4PBHhp1kbcp4</string>
+    <string name="apikey">TEST_API_KEY:4fb91e387c87d51b85c6176cfd457769:07df8065cfadf9fdc8d458878933dbac</string>
+    <string name="appid">2f5d4fb7-fafd-59a3-b3a2-64de18dca1b9</string>
 </resources>
