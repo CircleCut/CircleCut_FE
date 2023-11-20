@@ -18,7 +18,7 @@
 
         android:id="@+id/rect"
         android:layout_width="320dp"
-        android:layout_height="320dp"
+        android:layout_height="325dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="-90dp"
         android:contentDescription="logo"
@@ -53,11 +53,12 @@
             android:ems="10"
             android:fontFamily="@font/montserrat"
             android:hapticFeedbackEnabled="true"
+            android:inputType="textEmailAddress"
             android:maxWidth="100dp"
             android:minWidth="100dp"
+            android:paddingStart="5dp"
             android:textColor="#000000"
-            android:translationY="5dp"
-            android:inputType="textEmailAddress"/>
+            android:translationY="5dp" />
 
         <TextView
             android:id="@+id/passwdt"
@@ -82,6 +83,7 @@
             android:inputType="textPassword"
             android:maxWidth="100dp"
             android:minWidth="100dp"
+            android:paddingStart="5dp"
             android:textColor="#000000"
             android:translationY="5dp" />
 

@@ -8,8 +8,8 @@ import io.github.jan.supabase.postgrest.Postgrest
 class supabaseinit {
     fun getsupa(url:String,key:String):SupabaseClient{
         val supabase = createSupabaseClient(
-            supabaseUrl = url,
-            supabaseKey = key
+            supabaseUrl = "",
+            supabaseKey = ""
         ) {
             install(GoTrue)
             install(Postgrest)

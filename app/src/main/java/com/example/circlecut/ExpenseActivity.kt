@@ -11,8 +11,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ExpenseActivity : AppCompatActivity() {
     // Inside any other activity or fragment where you want to retrieve the user ID
-    val sharedPrefs = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-    val userId = sharedPrefs.getString("userId", "") // Default value "" will be used if userId is not found
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home)

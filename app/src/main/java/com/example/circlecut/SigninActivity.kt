@@ -16,7 +16,7 @@ import java.io.IOException
 import java.util.Properties
 
 class SigninActivity : AppCompatActivity() {
-    private val apiManager = ApiManager(R.string.apikey.toString())
+    private val apiManager = ApiManager()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.signin)

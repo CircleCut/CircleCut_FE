@@ -15,13 +15,7 @@ import circle.programmablewallet.sdk.api.ExecuteWarning
 import circle.programmablewallet.sdk.presentation.EventListener
 import circle.programmablewallet.sdk.presentation.SecurityQuestion
 import circle.programmablewallet.sdk.presentation.SettingsManagement
-import io.github.jan.supabase.createSupabaseClient
-import io.github.jan.supabase.gotrue.GoTrue
-import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.postgrest
-import io.github.jan.supabase.postgrest.query.Returning
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -35,25 +29,6 @@ class WalletInitializationActivity : AppCompatActivity(), EventListener, Callbac
     var challengeid:String=""
     var userId:String=""
     val supabase=supabaseinit().getsupa(R.string.supabaseurl.toString(),R.string.supabasekey.toString())
-    @Serializable
-    data class User(
-        @SerialName("uid")
-        val uid: Int? = null,  // Make uid nullable for it to be optional
-
-        @SerialName("created_at")
-        val createdAt: String? = null,
-        @SerialName("name")
-        val name: String,
-
-        @SerialName("email")
-        val email: String,
-
-        @SerialName("number")
-        val number: String,
-
-        @SerialName("password")
-        val password: String
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,7 +57,7 @@ class WalletInitializationActivity : AppCompatActivity(), EventListener, Callbac
 
     }
     private suspend fun insertuser(name: String,email: String,mobno:String,pass:String):String{
-        val usr= User(
+        val usr= com.example.circlecut.User(
             name = name,
             email = email,
             number = mobno,
@@ -112,7 +87,7 @@ class WalletInitializationActivity : AppCompatActivity(), EventListener, Callbac
     }
     private suspend fun launchapi(userId:String){
         val myCallback = this
-        val apiManager = ApiManager(R.string.apikey.toString())
+        val apiManager = ApiManager()
         var idempotencyKey = apiManager.makeGetRequest("https://www.uuidtools.com/api/generate/v4")
         val jsonArray = JSONArray(idempotencyKey)
         idempotencyKey=jsonArray.optString(0)
@@ -133,6 +108,7 @@ class WalletInitializationActivity : AppCompatActivity(), EventListener, Callbac
                             val jsonObject1 = JSONObject(inituser)
                             challengeid=jsonObject1.optJSONObject("data")?.optString("challengeId").toString()
                             if(challengeid!=""){
+                                println("Enterd")
                                 initAndLaunchSdk {
                                     WalletSdk.execute(
                                         this@WalletInitializationActivity,
@@ -182,7 +158,7 @@ class WalletInitializationActivity : AppCompatActivity(), EventListener, Callbac
                 applicationContext,
                 WalletSdk.Configuration(
                     "https://api.circle.com/v1/w3s/", // Replace with your actual endpoint
-                    R.string.appid.toString(), // Replace with your actual app ID
+                    "", // Replace with your actual app ID
                     settingsManagement
                 )
             )

@@ -12,11 +12,8 @@ import okhttp3.Response
 import org.json.JSONObject
 
 class ApiManager  {
-    private var apiKey:String;
+    private var apiKey="";
 
-    constructor(key:String){
-        apiKey=key
-    }
     suspend fun getSessionToken(userId: String): String? {
         try {
 

@@ -44,6 +44,7 @@
             android:inputType="text"
             android:maxWidth="100dp"
             android:minWidth="100dp"
+            android:paddingStart="5dp"
             android:textColor="#000000"
             android:translationY="5dp" />
 
@@ -70,6 +71,7 @@
             android:maxWidth="100dp"
             android:minWidth="100dp"
             android:textColor="#000000"
+            android:paddingStart="5dp"
             android:translationY="5dp"
             android:inputType="textEmailAddress"/>
 
@@ -90,6 +92,7 @@
             android:background="@drawable/rounded_editext"
             android:backgroundTint="#AEA5A5"
             android:backgroundTintMode="screen"
+            android:paddingStart="5dp"
             android:ems="10"
             android:fontFamily="@font/montserrat"
             android:hapticFeedbackEnabled="true"
@@ -113,6 +116,7 @@
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:width="500dp"
+            android:paddingStart="5dp"
             android:background="@drawable/rounded_editext"
             android:backgroundTint="#AEA5A5"
             android:backgroundTintMode="screen"
