@@ -22,4 +22,6 @@
     <string name="label_signature">Signature</string>
     <string name="label_warning_type">Warning Type</string>
     <string name="label_warning_message">Warning Message</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

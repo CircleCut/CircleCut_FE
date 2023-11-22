@@ -4,63 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
-    android:backgroundTint="#6499E9"
+    android:background="#6497E7"
+    android:backgroundTint="#6498E8"
     android:padding="0dp">
 
-    <LinearLayout
-        android:id="@+id/lay3"
+    <com.google.android.material.tabs.TabLayout
+        android:id='@+id/tablayout'
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:background="#F0F0F0"
         android:translationY="350dp"
-        android:translationZ="10dp">
+        android:translationZ="101dp">
 
-        <TextView
-            android:id="@+id/friends"
+        <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Friends"
-            android:textColor="#6499E9"
-            android:textSize="20sp" />
+            android:text="Friends" />
 
-        <TextView
-            android:id="@+id/group"
+        <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Groups"
-            android:textSize="20sp"/>
+            android:text="Group" />
 
-        <TextView
-            android:id="@+id/activity"
+        <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Activity"
-            android:textSize="20sp"/>
+            android:text="Activity" />
+    </com.google.android.material.tabs.TabLayout>
 
-    </LinearLayout>
+    <androidx.viewpager2.widget.ViewPager2
+        android:id='@+id/viewpager'
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:translationZ="100dp">
+
+    </androidx.viewpager2.widget.ViewPager2>
 
 
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="15dp"
-        android:clickable="true"
-        android:contentDescription="add expense"
-        android:src="@android:drawable/ic_input_add"
-        app:backgroundTint="#6499E9"
-        app:fabCustomSize="70dp" />
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/floatingActionButton2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:clickable="true"-->
+<!--        android:src="@android:drawable/ic_input_add"-->
+<!--        android:translationX="170dp"-->
+<!--        android:translationY="290dp"-->
+<!--        android:translationZ="200dp" />-->
 
     <ImageView
         android:id="@+id/circlebg"
@@ -222,7 +211,6 @@
         android:layout_centerHorizontal="true"
         android:contentDescription="rect"
         android:src="@drawable/rectangle1"
-
         android:translationY="300dp" />
 
     <ImageView
@@ -234,13 +222,5 @@
         android:src="@drawable/rectangle"
         android:translationY="180dp"
         android:translationZ="100dp" />
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:translationY="400dp">
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    </androidx.core.widget.NestedScrollView>
+
 </RelativeLayout>

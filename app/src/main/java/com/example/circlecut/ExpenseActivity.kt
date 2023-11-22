@@ -3,50 +3,48 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TableLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.tabs.TabLayout
 
 class ExpenseActivity : AppCompatActivity() {
-    // Inside any other activity or fragment where you want to retrieve the user ID
+    lateinit var tablayout:TabLayout;
+    lateinit var viewPager2: ViewPager2;
+    lateinit var ViewpagerAdapter:ViewpagerAdapter;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home)
-        // Fetch expense data (replace this with your data fetching logic)
-        val expenses = getDummyExpenseData()
-        val avty:TextView =findViewById(R.id.activity)
-        val group: TextView = findViewById(R.id.group)
         val floatbutton : FloatingActionButton = findViewById(R.id.floatingActionButton2)
-
+        tablayout=findViewById(R.id.tablayout)
+        ViewpagerAdapter=ViewpagerAdapter(this);
+        viewPager2=findViewById(R.id.viewpager)
+        viewPager2.adapter=ViewpagerAdapter;
         floatbutton.setOnClickListener{
             startActivity(Intent(this@ExpenseActivity,AddExpense::class.java))
         }
-        group.setOnClickListener {
+        tablayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                if (tab != null) {
+                    viewPager2.setCurrentItem(tab.position)
+                }
+            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
 
-            startActivity(Intent(this@ExpenseActivity, Expensegroup::class.java))
-        }
-        avty.setOnClickListener {
-
-            startActivity(Intent(this@ExpenseActivity, Expenseavty::class.java))
-        }
-
-        // Set up RecyclerView
-        val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = ExpenseAdapter(expenses)
-    }
-
-    private fun getDummyExpenseData(): List<Expense> {
-        // Replace this with your data fetching logic
-        return listOf(
-            Expense("Adriel", "You owe","A", 300),
-            Expense("Romario", "You owe","R", 300),
-            Expense("Gabriel", "Owes you","G", 100),
-            Expense("Romario", "You owe","R", 300),
-            Expense("Adriel", "You owe","A", 300),
-            // Add more expense items as needed
-        )
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+        })
+        viewPager2.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
+            @Override
+            public override fun onPageSelected(position:Int) {
+                super.onPageSelected(position);
+                tablayout.getTabAt(position)?.select()
+            }
+        } )
     }
 }

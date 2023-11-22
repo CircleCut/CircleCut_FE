@@ -1,6 +1,6 @@
 package com.example.circlecut
 
-import android.content.Context
+import SessionManager
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -25,10 +25,11 @@ import org.json.JSONObject
 
 class WalletInitializationActivity : AppCompatActivity(), EventListener, Callback<ExecuteResult> {
     var usertoken:String =""
-    var encryptionkey:String?=""
+    var encryptionkey:String=""
     var challengeid:String=""
     var userId:String=""
     val supabase=supabaseinit().getsupa(R.string.supabaseurl.toString(),R.string.supabasekey.toString())
+    val mycallback=this;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,10 +48,6 @@ class WalletInitializationActivity : AppCompatActivity(), EventListener, Callbac
                 val uid =insertuser(name,email,mobno,pass)
                 println("uidup : $uid")
                 if(uid!=""){
-                val sharedPrefs = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-                val editor = sharedPrefs.edit()
-                editor.putString("userId", userId)
-                editor.apply()
                 launchapi(uid)}
             }
         }
@@ -158,7 +155,7 @@ class WalletInitializationActivity : AppCompatActivity(), EventListener, Callbac
                 applicationContext,
                 WalletSdk.Configuration(
                     "https://api.circle.com/v1/w3s/", // Replace with your actual endpoint
-                    "", // Replace with your actual app ID
+                    "2f5d4fb7-fafd-59a3-b3a2-64de18dca1b9", // Replace with your actual app ID
                     settingsManagement
                 )
             )
@@ -170,9 +167,9 @@ class WalletInitializationActivity : AppCompatActivity(), EventListener, Callbac
         launchBlock()
     }
     override fun onResult(result: ExecuteResult) {
-        val walletAddress = result.data?.toString()
-        Toast.makeText(this, "Wallet initialized successfully. Address: $walletAddress", Toast.LENGTH_SHORT).show()
-        println(walletAddress)
+        val sessionManager = SessionManager(this);
+        sessionManager.createLoginSession(userId, usertoken,encryptionkey)
+        Toast.makeText(this, "Account initialized successfully", Toast.LENGTH_SHORT).show()
         startActivity(Intent(this@WalletInitializationActivity, ExpenseActivity::class.java))
     }
 
