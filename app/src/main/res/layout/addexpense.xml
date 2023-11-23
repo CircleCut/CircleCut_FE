@@ -29,7 +29,7 @@
         android:translationY="220dp" />
 
     <ImageView
-        android:id="@+id/circlebg"
+        android:id="@+id/back"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="15dp"
@@ -61,20 +61,21 @@
 
         <TextView
             android:id="@+id/textView6"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:fontFamily="@font/montserrat"
             android:text="With you and"
             android:textSize="20sp" />
 
-        <AutoCompleteTextView
-            android:id="@+id/autoCompleteTextView"
-            android:layout_width="wrap_content"
+        <Spinner
+            android:id="@+id/person"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="                   " />
+            android:autofillHints="Select"
+            android:fontFamily="@font/montserrat"
+            android:textSize="20sp"/>
 
 
     </LinearLayout>
@@ -100,16 +101,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:translationX="80dp"
+        android:translationX="50dp"
         android:translationY="300dp">
 
-        <TextView
-            android:id="@+id/textView14"
+        <Spinner
+            android:id="@+id/currency"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="$"
-            android:textSize="20sp" />
+            android:autofillHints="Select"
+            android:fontFamily="@font/montserrat"
+            android:textSize="20sp"/>
 
         <EditText
             android:id="@+id/editTextText2"
@@ -118,7 +120,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="text"
-            android:text="0.00" />
+            android:hint="0.00" />
     </LinearLayout>
 
     <LinearLayout
@@ -133,14 +135,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat"
-            android:text="Name of Expense" />
+            android:hint="Name of Expense"
+             />
 
-        <AutoCompleteTextView
-            android:id="@+id/autoCompleteTextView3"
+        <Spinner
+            android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:autofillHints="Select"
             android:fontFamily="@font/montserrat"
-            android:text="Today" />
+            android:textSize="20sp" />
 
     </LinearLayout>
 

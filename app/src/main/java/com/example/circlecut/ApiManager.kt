@@ -85,22 +85,23 @@ class ApiManager  {
         }
     }
 
-    suspend fun getWalletDetails(userId: String, apiKey: String): String? {
-        try {
+    suspend fun getWalletDetails(userId: String): String? {
+        return try {
             val client = OkHttpClient()
 
             val request = Request.Builder()
-                .url("https://api.circle.com/v1/w3s/wallets/$userId")
+                .url("https://api.circle.com/v1/w3s/wallets?userId=$userId&pageSize=10")
                 .get()
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Authorization", "Bearer $apiKey")
+                .addHeader("accept", "application/json")
+                .addHeader("authorization", "Bearer $apiKey")
                 .build()
 
             val response = client.newCall(request).execute()
             return response.body?.string()
-
         } catch (e: Exception) {
-            return e.toString()
+            // Handle exceptions appropriately, e.g., log or return null
+            e.printStackTrace()
+            null
         }
     }
     private fun readApiKey(): String {

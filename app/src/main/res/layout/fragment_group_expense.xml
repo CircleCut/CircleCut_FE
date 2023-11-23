@@ -6,8 +6,8 @@
     tools:context=".GroupExpense">
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:translationY="400dp"
+            android:layout_height="390dp"
+            android:translationY="360dp"
             android:translationZ="150dp"
             >
             <androidx.recyclerview.widget.RecyclerView
