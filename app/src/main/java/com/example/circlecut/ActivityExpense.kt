@@ -18,14 +18,14 @@ class ActivityExpense : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val expenses = getDummyExpenseData()
-        recyclerView.adapter = ExpenseAdapter(expenses)
+        recyclerView.adapter = ExpenseAdapter(expenses){}
         return view
     }
     private fun getDummyExpenseData(): List<Expense> {
         // Replace this with your data fetching logic
         return listOf(
-            Expense("Adriel", "Dinner - You owe","H", 500), // Add more expense items as needed
-            Expense("Gabriel", "Settled Up","H", 100), // Add more expense items as needed
+            Expense("Adriel", "Dinner - You owe","H", 5.0,"ETH",101), // Add more expense items as needed
+            Expense("Gabriel", "Settled Up","H", 1.0,"USD",100), // Add more expense items as needed
         )
     }
 }

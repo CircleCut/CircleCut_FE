@@ -85,12 +85,12 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:elegantTextHeight="true"
         android:fontFamily="@font/montserrat"
         android:text="CircleCut"
         android:textColor="#FFFFFF"
         android:textSize="34sp"
-        android:translationX="140dp"
-        android:translationY="170dp" />
+        android:translationY="190dp" />
 
 </RelativeLayout>

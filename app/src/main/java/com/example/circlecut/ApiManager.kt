@@ -104,9 +104,6 @@ class ApiManager  {
             null
         }
     }
-    private fun readApiKey(): String {
-        return "YOUR_API_KEY"
-    }
     suspend fun makeGetRequest(url: String): String? {
         val client = OkHttpClient()
         val request = Request.Builder()
@@ -120,27 +117,77 @@ class ApiManager  {
             null
         }
     }
-    suspend fun UserPin(userToken: String, idempotencyKey: String): String? {
+    fun makeTransferRequest(
+        amounts: List<String>,
+        idempotencyKey: String,
+        tokenId: String,
+        walletId: String,
+        destinationAddress: String,
+        userToken: String,
+    ):String {
         val client = OkHttpClient()
 
-        val mediaType = "application/json".toMediaTypeOrNull()
-        val requestBody = "{\"idempotencyKey\":\"$idempotencyKey\"}".toRequestBody(mediaType)
+        val mediaType = "application/json; charset=utf-8".toMediaType()
+
+        val requestBody = """
+        {
+            "amounts": $amounts,
+            "idempotencyKey": "$idempotencyKey",
+            "tokenId": "$tokenId",
+            "walletId": "$walletId",
+            "destinationAddress": "$destinationAddress",
+            "refId": "Quickstart Guide"
+            "feeLevel", "HIGH"
+        }
+    """.trimIndent().toRequestBody(mediaType)
 
         val request = Request.Builder()
-            .url("https://api.circle.com/v1/w3s/user/pin")
+            .url("https://api.circle.com/v1/w3s/user/transactions/transfer")
             .post(requestBody)
             .addHeader("accept", "application/json")
             .addHeader("X-User-Token", userToken)
             .addHeader("content-type", "application/json")
+            .addHeader("authorization", apiKey)
+            .build()
+
+        val response = client.newCall(request).execute()
+        val responseBody = response.body?.string() ?: ""
+
+        val jsonObject = JSONObject(responseBody)
+        val transactionResponse = jsonObject.getJSONObject("transactionResponse")
+        val challengeId = transactionResponse.getJSONObject("data").getString("challengeId")
+
+        return challengeId
+    }
+
+    fun getUsdcTokenId(walletId: String,): String {
+        val client = OkHttpClient()
+
+        val url = "https://api.circle.com/v1/w3s/wallets/$walletId/balances?pageSize=10"
+
+        val request = Request.Builder()
+            .url(url)
+            .get()
+            .addHeader("accept", "application/json")
             .addHeader("authorization", "Bearer $apiKey")
             .build()
 
-        return try {
-            val response = client.newCall(request).execute()
-            response.body?.string()
-        } catch (e: Exception) {
-            null
+        val response = client.newCall(request).execute()
+        val responseBody = response.body?.string() ?: ""
+
+        val jsonObject = JSONObject(responseBody)
+        val dataObject = jsonObject.getJSONObject("data")
+        val tokenBalancesArray = dataObject.getJSONArray("tokenBalances")
+
+        for (i in 0 until tokenBalancesArray.length()) {
+            val tokenObject = tokenBalancesArray.getJSONObject(i).getJSONObject("token")
+            val name = tokenObject.getString("name")
+            if (name == "USD Coin") {
+                return tokenObject.getString("id")
+            }
         }
+
+        return "" // Return empty string if USD Coin is not found
     }
 
 }

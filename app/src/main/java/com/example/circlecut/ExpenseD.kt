@@ -4,13 +4,13 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ExpenseD(
     @SerialName("uid1")
-    val uid1: Long,
+    val uid1: Int,
 
     @SerialName("created_at")
-    val createdAt: String, // Assuming the timestamp is represented as a string
+    val createdAt: String?=null, // Assuming the timestamp is represented as a string
 
     @SerialName("uid2")
-    val uid2: Long?,
+    val uid2: Int?,
 
     @SerialName("when")
     val whenDate: String?, // Assuming "when" is used as a variable name, so backticks are needed
@@ -21,15 +21,15 @@ data class ExpenseD(
     @SerialName("currency")
     val currency: String?,
 
-    @SerialName("paid_by")
-    val paidBy: Long?,
+    @SerialName("paidby")
+    val paidby: Int?,
 
     @SerialName("amount")
     val amount: Double?,
 
     @SerialName("issettled")
-    val isSettled: Boolean?,
+    val isSettled: Boolean?=false,
 
     @SerialName("expenseid")
-    val expenseId: Long?
+    val expenseId: Long?=null
 )

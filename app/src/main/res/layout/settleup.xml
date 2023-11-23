@@ -108,6 +108,25 @@
         android:src="@drawable/back" />
 
     <TextView
+        android:id="@+id/swalT"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="270dp"
+        android:text="0x00000000219ab540356cbb839cbe05303d7705fa"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/rwalT"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="270dp"
+        android:layout_marginRight="85dp"
+        android:text="0x00000000219ab540356cbb839cbe05303d7705fa"
+        android:textAlignment="center" />
+
+    <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -157,6 +176,7 @@
             android:textColor="#FF3838"
             android:textSize="20sp" />
     </LinearLayout>
+
     <Button
         android:id="@+id/settleButton"
         android:layout_width="210dp"
@@ -172,5 +192,5 @@
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:translationX="100dp"
-        android:translationY="300dp"/>
+        android:translationY="330dp" />
 </RelativeLayout>

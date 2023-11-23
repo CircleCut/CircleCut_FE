@@ -68,7 +68,7 @@
                 android:fontFamily="@font/montserrat"
                 android:text="$"
                 android:textSize="15sp"
-                android:translationX="290dp"
+                android:translationX="260dp"
                 android:translationY="45dp"
                 android:translationZ="10dp" />
 

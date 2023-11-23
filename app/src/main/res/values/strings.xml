@@ -29,7 +29,7 @@
         <item>BTC</item>
         <item>XPR</item>
         <item>NEO</item>
-        <item>$</item>
+        <item>USD</item>
     </string-array>
     <string-array name="Date">
         <item>Today</item>
@@ -38,6 +38,6 @@
     </string-array>
     <string-array name="Friends">
         <item> </item>
-        <item>Gabriel</item>
+        <item>Gab</item>
     </string-array>
 </resources>
