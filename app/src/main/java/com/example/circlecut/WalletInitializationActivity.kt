@@ -82,70 +82,70 @@ class WalletInitializationActivity : AppCompatActivity(), EventListener, Callbac
             return ""
         }
     }
-    private suspend fun launchapi(userId:String){
-        val myCallback = this
-        val apiManager = ApiManager()
-        var idempotencyKey = apiManager.makeGetRequest("https://www.uuidtools.com/api/generate/v4")
-        val jsonArray = JSONArray(idempotencyKey)
-        idempotencyKey=jsonArray.optString(0)
-        try{
-            val result = apiManager.createUser(userId)
-            println(result)
-            if (result != null) {
-                val sessiontoken = apiManager.getSessionToken(userId)
-                if (sessiontoken != null) {
-                    val jsonObject = JSONObject(sessiontoken)
-                    usertoken= jsonObject.optJSONObject("data")?.optString("userToken").toString()
-                    encryptionkey=jsonObject.optJSONObject("data")?.optString("encryptionKey").toString()
-                    println(usertoken)
-                    if(usertoken!=null){
-                        val inituser = apiManager.initializeUser(usertoken,idempotencyKey)
-                        if(inituser!=null){
-                            println(inituser)
-                            val jsonObject1 = JSONObject(inituser)
-                            challengeid=jsonObject1.optJSONObject("data")?.optString("challengeId").toString()
-                            if(challengeid!=""){
-                                println("Enterd")
-                                initAndLaunchSdk {
-                                    WalletSdk.execute(
-                                        this@WalletInitializationActivity,
-                                        "$usertoken", // Replace with your actual user token
-                                        "$encryptionkey", // Replace with your actual encryption key
-                                        arrayOf("$challengeid"), // Replace with your actual challenge ID
-                                        myCallback
-                                    )
-                                    WalletSdk.setSecurityQuestions(
-                                        arrayOf(
-                                            SecurityQuestion("What is your father’s middle name?"),
-                                            SecurityQuestion("What is your favorite sports team?"),
-                                            SecurityQuestion("What is your mother’s maiden name?"),
-                                            SecurityQuestion("What is the name of your first pet?"),
-                                            SecurityQuestion("What is the name of the city you were born in?"),
-                                            SecurityQuestion("What is the name of the first street you lived on?"),
-                                            SecurityQuestion(
-                                                "When is your father’s birthday?",
-                                                SecurityQuestion.InputType.datePicker
+        private suspend fun launchapi(userId:String){
+            val myCallback = this
+            val apiManager = ApiManager()
+            var idempotencyKey = apiManager.makeGetRequest("https://www.uuidtools.com/api/generate/v4")
+            val jsonArray = JSONArray(idempotencyKey)
+            idempotencyKey=jsonArray.optString(0)
+            try{
+                val result = apiManager.createUser(userId)
+                println(result)
+                if (result != null) {
+                    val sessiontoken = apiManager.getSessionToken(userId)
+                    if (sessiontoken != null) {
+                        val jsonObject = JSONObject(sessiontoken)
+                        usertoken= jsonObject.optJSONObject("data")?.optString("userToken").toString()
+                        encryptionkey=jsonObject.optJSONObject("data")?.optString("encryptionKey").toString()
+                        println(usertoken)
+                        if(usertoken!=null){
+                            val inituser = apiManager.initializeUser(usertoken,idempotencyKey)
+                            if(inituser!=null){
+                                println(inituser)
+                                val jsonObject1 = JSONObject(inituser)
+                                challengeid=jsonObject1.optJSONObject("data")?.optString("challengeId").toString()
+                                if(challengeid!=""){
+                                    println("Enterd")
+                                    initAndLaunchSdk {
+                                        WalletSdk.execute(
+                                            this@WalletInitializationActivity,
+                                            "$usertoken", // Replace with your actual user token
+                                            "$encryptionkey", // Replace with your actual encryption key
+                                            arrayOf("$challengeid"), // Replace with your actual challenge ID
+                                            myCallback
+                                        )
+                                        WalletSdk.setSecurityQuestions(
+                                            arrayOf(
+                                                SecurityQuestion("What is your father’s middle name?"),
+                                                SecurityQuestion("What is your favorite sports team?"),
+                                                SecurityQuestion("What is your mother’s maiden name?"),
+                                                SecurityQuestion("What is the name of your first pet?"),
+                                                SecurityQuestion("What is the name of the city you were born in?"),
+                                                SecurityQuestion("What is the name of the first street you lived on?"),
+                                                SecurityQuestion(
+                                                    "When is your father’s birthday?",
+                                                    SecurityQuestion.InputType.datePicker
+                                                )
                                             )
                                         )
-                                    )
+                                    }
+
+
+
                                 }
-
-
-
-                            }
-                        }}
+                            }}
+                    } else {
+                        println("Error occurred during sessiontoken.")
+                    }
                 } else {
-                    println("Error occurred during sessiontoken.")
+                    println("Error occurred during create user.")
                 }
-            } else {
-                println("Error occurred during create user.")
-            }
 
+            }
+            catch (e:Exception){
+                println(e)
+            }
         }
-        catch (e:Exception){
-            println(e)
-        }
-    }
     private inline fun initAndLaunchSdk(launchBlock: () -> Unit) {
         try {
             val settingsManagement = SettingsManagement()

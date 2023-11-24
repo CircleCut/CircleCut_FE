@@ -113,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="80dp"
         android:layout_marginTop="270dp"
-        android:text="0x00000000219ab540356cbb839cbe05303d7705fa"
+        android:text="0x644fbd345abd6704865a7400871e74015375f708"
         android:textAlignment="center" />
 
     <TextView
@@ -123,7 +123,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="270dp"
         android:layout_marginRight="85dp"
-        android:text="0x00000000219ab540356cbb839cbe05303d7705fa"
+        android:text="0x2de2dd730a1237455a2231623343e98362d324ba"
         android:textAlignment="center" />
 
     <TextView
@@ -172,7 +172,7 @@
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
             android:fontFamily="@font/montserrat"
-            android:text="500$"
+            android:text=""
             android:textColor="#FF3838"
             android:textSize="20sp" />
     </LinearLayout>

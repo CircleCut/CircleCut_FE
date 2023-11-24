@@ -117,7 +117,7 @@ class ApiManager  {
             null
         }
     }
-    fun makeTransferRequest(
+    suspend fun makeTransferRequest(
         amounts: List<String>,
         idempotencyKey: String,
         tokenId: String,
@@ -136,7 +136,6 @@ class ApiManager  {
             "tokenId": "$tokenId",
             "walletId": "$walletId",
             "destinationAddress": "$destinationAddress",
-            "refId": "Quickstart Guide"
             "feeLevel", "HIGH"
         }
     """.trimIndent().toRequestBody(mediaType)
@@ -147,12 +146,12 @@ class ApiManager  {
             .addHeader("accept", "application/json")
             .addHeader("X-User-Token", userToken)
             .addHeader("content-type", "application/json")
-            .addHeader("authorization", apiKey)
+            .addHeader("authorization", "Bearer $apiKey")
             .build()
 
         val response = client.newCall(request).execute()
         val responseBody = response.body?.string() ?: ""
-
+        println(responseBody)
         val jsonObject = JSONObject(responseBody)
         val transactionResponse = jsonObject.getJSONObject("transactionResponse")
         val challengeId = transactionResponse.getJSONObject("data").getString("challengeId")
@@ -160,7 +159,7 @@ class ApiManager  {
         return challengeId
     }
 
-    fun getUsdcTokenId(walletId: String,): String {
+    suspend fun getUsdcTokenId(walletId: String,): String {
         val client = OkHttpClient()
 
         val url = "https://api.circle.com/v1/w3s/wallets/$walletId/balances?pageSize=10"

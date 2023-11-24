@@ -126,6 +126,18 @@
         android:textSize="48sp"
         android:tooltipText="Hellos"
         android:translationY="63dp" />
+    <ImageView
+
+        android:id="@+id/logoImageView"
+        android:layout_width="200dp"
+        android:layout_height="290dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-90dp"
+        android:contentDescription="logo"
+        android:src="@drawable/_artboard_1border"
+        android:translationX="-3dp"
+        android:translationY="53dp" />
+
 
     <TextView
         android:id="@+id/textView15"
@@ -170,7 +182,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/montserrat"
-                android:text="30 $"
+                android:text="0 $"
 
                 android:textAlignment="center"
                 android:textSize="20sp" />
@@ -208,7 +220,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat"
-                android:text="30 $"
+                android:text="0 $"
                 android:textAlignment="center"
                 android:textSize="20sp" />
 
@@ -244,7 +256,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat"
-                android:text="30 $"
+                android:text="0 $"
 
                 android:textAlignment="center"
                 android:textSize="20sp" />

@@ -27,8 +27,7 @@
         <activity android:name=".AddExpense" />
         <activity android:name=".WalletInitializationActivity"/>
         <activity android:name=".SettleupActivity"/>
-
-
+        <activity android:name=".transSuccess"/>
         <activity
             android:name=".CustomActivity"
             android:screenOrientation="portrait" />
