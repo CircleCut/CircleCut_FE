@@ -113,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="80dp"
         android:layout_marginTop="270dp"
-        android:text="0x644fbd345abd6704865a7400871e74015375f708"
+        android:text=""
         android:textAlignment="center" />
 
     <TextView
@@ -123,7 +123,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="270dp"
         android:layout_marginRight="85dp"
-        android:text="0x2de2dd730a1237455a2231623343e98362d324ba"
+        android:text=""
         android:textAlignment="center" />
 
     <TextView
@@ -193,4 +193,21 @@
         android:textSize="18sp"
         android:translationX="100dp"
         android:translationY="330dp" />
+
+    <Button
+        android:id="@+id/covertbutton"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button"
+        android:backgroundTint="#9EDDFF"
+        android:fontFamily="@font/lato"
+        android:padding="10dp"
+        android:text="Convert to USD"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:translationX="100dp"
+        android:translationY="400dp" />
 </RelativeLayout>

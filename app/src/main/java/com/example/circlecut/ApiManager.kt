@@ -7,6 +7,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import org.json.JSONObject
@@ -66,7 +67,7 @@ class ApiManager  {
         val client = OkHttpClient()
 
         val mediaType = "application/json".toMediaTypeOrNull()
-        val body = "{\"blockchains\":[\"ETH-GOERLI\"],\"accountType\":\"SCA\",\"idempotencyKey\":\"$idemkey\"}".toRequestBody(mediaType)
+        val body = "{\"blockchains\":[\"MATIC-MUMBAI\"],\"accountType\":\"SCA\",\"idempotencyKey\":\"$idemkey\"}".toRequestBody(mediaType)
 
         val request = Request.Builder()
             .url("https://api.circle.com/v1/w3s/user/initialize")
@@ -88,7 +89,6 @@ class ApiManager  {
     suspend fun getWalletDetails(userId: String): String? {
         return try {
             val client = OkHttpClient()
-
             val request = Request.Builder()
                 .url("https://api.circle.com/v1/w3s/wallets?userId=$userId&pageSize=10")
                 .get()
@@ -99,7 +99,6 @@ class ApiManager  {
             val response = client.newCall(request).execute()
             return response.body?.string()
         } catch (e: Exception) {
-            // Handle exceptions appropriately, e.g., log or return null
             e.printStackTrace()
             null
         }
@@ -117,32 +116,33 @@ class ApiManager  {
             null
         }
     }
-    suspend fun makeTransferRequest(
-        amounts: List<String>,
+    suspend fun makeTransfer(
+        amount: String,
         idempotencyKey: String,
         tokenId: String,
         walletId: String,
         destinationAddress: String,
         userToken: String,
-    ):String {
+    ): String? {
         val client = OkHttpClient()
 
-        val mediaType = "application/json; charset=utf-8".toMediaType()
-
+        val mediaType = "application/json".toMediaTypeOrNull()
         val requestBody = """
         {
-            "amounts": $amounts,
+            "amounts": ["$amount"],
             "idempotencyKey": "$idempotencyKey",
             "tokenId": "$tokenId",
             "walletId": "$walletId",
             "destinationAddress": "$destinationAddress",
-            "feeLevel", "HIGH"
+            "feeLevel": "HIGH"
         }
-    """.trimIndent().toRequestBody(mediaType)
+    """.trimIndent()
+
+        val body = RequestBody.create(mediaType, requestBody)
 
         val request = Request.Builder()
             .url("https://api.circle.com/v1/w3s/user/transactions/transfer")
-            .post(requestBody)
+            .post(body)
             .addHeader("accept", "application/json")
             .addHeader("X-User-Token", userToken)
             .addHeader("content-type", "application/json")
@@ -150,12 +150,49 @@ class ApiManager  {
             .build()
 
         val response = client.newCall(request).execute()
-        val responseBody = response.body?.string() ?: ""
-        println(responseBody)
-        val jsonObject = JSONObject(responseBody)
-        val transactionResponse = jsonObject.getJSONObject("transactionResponse")
-        val challengeId = transactionResponse.getJSONObject("data").getString("challengeId")
 
+        // Handle the response
+        val responseBody = response.body?.string()
+        val jsonObject = JSONObject(responseBody)
+        val challengeId = jsonObject.optJSONObject("data")?.optString("challengeId")
+
+        return challengeId
+    }
+    suspend fun makeContractExecutionRequest(
+        walletId: String,
+        xUserToken: String,
+        idempotencyKey: String
+    ): String {
+        val client = OkHttpClient()
+        val mediaType = "application/json".toMediaTypeOrNull()
+
+        val requestBody = RequestBody.create(
+            mediaType,
+            """
+        {
+            "walletId": "$walletId",
+            "feeLevel": "MEDIUM",
+            "contractAddress": "0xAdc64dfB793a9A40561A312D7E19029919021186",
+            "callData": "0xc0d2b7790000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006400000000000000000000000000000000000000000000000000000000000000c8000000000000000000000000000000000000000000000000000000000000012c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            "idempotencyKey": "$idempotencyKey"
+        }
+        """.trimIndent()
+        )
+
+        val request = Request.Builder()
+            .url("https://api.circle.com/v1/w3s/user/transactions/contractExecution")
+            .post(requestBody)
+            .addHeader("accept", "application/json")
+            .addHeader("X-User-Token", xUserToken)
+            .addHeader("content-type", "application/json")
+            .addHeader("authorization", "Bearer $apiKey")
+            .build()
+
+        val response = client.newCall(request).execute()
+        val responseBody = response.body?.string()
+        val jsonObject = JSONObject(responseBody)
+        val challengeId = jsonObject.optJSONObject("data")?.optString("challengeId").toString()
+        println(responseBody)
         return challengeId
     }
 
@@ -181,9 +218,8 @@ class ApiManager  {
         for (i in 0 until tokenBalancesArray.length()) {
             val tokenObject = tokenBalancesArray.getJSONObject(i).getJSONObject("token")
             val name = tokenObject.getString("name")
-            if (name == "USD Coin") {
-                return tokenObject.getString("id")
-            }
+            if (name == "USD Coin"){
+                return tokenObject.getString("id") }
         }
 
         return "" // Return empty string if USD Coin is not found

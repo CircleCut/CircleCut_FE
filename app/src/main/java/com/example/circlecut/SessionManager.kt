@@ -31,7 +31,6 @@ class SessionManager(private val context: Context) {
     fun checkLogin(): Boolean {
         val currentTime = Calendar.getInstance().timeInMillis
         val expirationTime = sharedPreferences.getLong(KEY_EXPIRATION_TIME, 0)
-
         return currentTime < expirationTime
     }
 
@@ -39,6 +38,8 @@ class SessionManager(private val context: Context) {
         val userDetails = HashMap<String, String>()
         userDetails[KEY_USER_ID] = sharedPreferences.getString(KEY_USER_ID, "")!!
         userDetails[KEY_SESSION_TOKEN] = sharedPreferences.getString(KEY_SESSION_TOKEN, "")!!
+        userDetails[KEY_ENCRYPTION_ID] = sharedPreferences.getString(KEY_ENCRYPTION_ID, "")!!
+
         return userDetails
     }
 

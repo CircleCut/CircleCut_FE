@@ -39,5 +39,6 @@
     <string-array name="Friends">
         <item> </item>
         <item>Gab</item>
+        <item>Alice</item>
     </string-array>
 </resources>
